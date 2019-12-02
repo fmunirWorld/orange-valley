@@ -15,4 +15,8 @@ export class LoginService {
       credentials.password
     );
   }
+
+  logout(): Promise<any> {
+    return this.ngFireAuth.auth.signOut();
+  }
 }

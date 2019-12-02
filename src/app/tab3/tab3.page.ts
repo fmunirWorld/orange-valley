@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable} from 'rxjs';
+import {LoginService} from '../services/login.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -11,13 +13,15 @@ import {Observable} from 'rxjs';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
-  myProfileImage;
   myStoredProfileImage: Observable<any>;
 
   constructor(private alertController: AlertController,
               private camera: Camera,
               private ngFireAuth: AngularFireAuth,
-              private ngFirestore: AngularFirestore) {
+              private ngFirestore: AngularFirestore,
+              private loginService: LoginService,
+              private router: Router,
+              private toastController: ToastController) {
     this.myStoredProfileImage = ngFirestore
       .collection('users')
       .doc(this.ngFireAuth.auth.currentUser.uid).valueChanges();
@@ -50,7 +54,6 @@ export class Tab3Page {
           text: 'Camera',
           handler: value => {
             this.camera.getPicture(cameraOptions).then((imageData) => {
-              // this.myProfileImage = 'data:image/jpeg;base64,' + imageData;
               const image = 'data:image/jpeg;base64,' + imageData;
               this.ngFirestore
                 .collection('users')
@@ -65,7 +68,6 @@ export class Tab3Page {
           text: 'Gallery',
           handler: value => {
             this.camera.getPicture(galleryOptions).then((imageData) => {
-              // this.myProfileImage = 'data:image/jpeg;base64,' + imageData;
               const image = 'data:image/jpeg;base64,' + imageData;
               this.ngFirestore
                 .collection('users')
@@ -81,4 +83,17 @@ export class Tab3Page {
 
     await alert.present();
   }
+
+  logout() {
+    this.loginService.logout()
+      .then(() => this.router.navigate(['/login']).then(() => {
+        const toast = this.toastController.create({
+          message: 'Logged out success. Please login again to continue...',
+          duration: 2000,
+          position: 'bottom'
+        });
+        toast.then(toastMessage => toastMessage.present());
+      }));
+  }
+
 }
