@@ -72,15 +72,23 @@ export class ActivityDetailPage implements OnInit {
               .collection('favorites')
               .doc(this.ngFireAuth.auth.currentUser.uid)
                 .collection('favorites')
-                .add(activity)
-              .then(() => {
-                const toast = this.toastController.create({
-                  message: `The activity ${activity.name} was added to your favorites.`,
-                  duration: 3500,
-                  position: 'top'
+                .doc(activity.id)
+                .set(activity)
+                .then(() => {
+                  const toast = this.toastController.create({
+                    message: `The activity ${activity.name} was added to your favorites.`,
+                    duration: 3500,
+                    position: 'top'
+                  });
+                  toast.then(toastMessage => toastMessage.present());
                 });
-                toast.then(toastMessage => toastMessage.present());
-              });
+          } else {
+            const toast = this.toastController.create({
+              message: `The activity ${activity.name} was already in your favorites.`,
+              duration: 3500,
+              position: 'top'
+            });
+            toast.then(toastMessage => toastMessage.present());
           }
         });
     });

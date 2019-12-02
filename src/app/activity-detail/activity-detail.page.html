@@ -12,6 +12,7 @@
 
   <ion-card class="ion-no-margin">
     <ion-card-header>
+      <ion-card-subtitle>{{(activityDetail | async)?.category}}</ion-card-subtitle>
       <ion-card-title>{{(activityDetail | async)?.name}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>{{(activityDetail | async)?.description}}</ion-card-content>

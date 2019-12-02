@@ -35,7 +35,7 @@
       [routerLink]="['activity-detail', activity.id]"
       *ngFor="let activity of (activityList | async)"
   >
-    <ion-img [src]="activity.cropped"></ion-img>
+    <ion-img [src]="activity.thumbnail"></ion-img>
     <ion-card-header>
       <ion-card-title>{{activity.name}}</ion-card-title>
     </ion-card-header>
