@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab Three
-    </ion-title>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-avatar (click)="selectImageSource()" class="profile-pic">
+    <ion-img [src]="(myStoredProfileImage | async)?.image_src"></ion-img>
+  </ion-avatar>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Ali Zar</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      The developer of the slowest framework for mobile app development.
+    </ion-card-content>
+  </ion-card>
+</ion-content>
