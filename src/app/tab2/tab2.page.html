@@ -7,6 +7,12 @@
 <ion-content>
   <ion-list lines="full">
     <ion-item-sliding *ngFor="let activity of (favoriteActivityList | async)">
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="removeFromFavorites(activity)">
+          <ion-icon class="ion-padding-horizontal" style="font-size: 28px" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
       <ion-item>
         <ion-thumbnail slot="start">
           <ion-img [src]="activity.thumbnail"></ion-img>
@@ -19,7 +25,7 @@
 
       <ion-item-options side="end">
         <ion-item-option color="danger" (click)="removeFromFavorites(activity)">
-          <ion-icon name="trash"></ion-icon>
+          <ion-icon class="ion-padding-horizontal" style="font-size: 28px" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
