@@ -3,5 +3,7 @@ An Ionic/Cordova demo app for Orange Valley Community Arts Association (OVCAA). 
 
 ### About OVCAA
 Orange Valley Community Arts Association (OVCAA) is a a fictious brand created by lynda.com
+
 OVCAA Home: https://orangevalleycaa.org/
+
 OVCAA API: https://orangevalleycaa.org/api/videos
